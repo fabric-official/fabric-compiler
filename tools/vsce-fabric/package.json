@@ -1,0 +1,100 @@
+{
+    "name":  "fabric-lang",
+    "displayName":  "Fabric Language + Brain",
+    "description":  "VS Code support for Fabric .fab with local compiler and brain integration (serverless).",
+    "version":  "0.1.0",
+    "publisher":  "fabric-local",
+    "engines":  {
+                    "vscode":  "^1.101.0"
+                },
+    "categories":  [
+                       "Programming Languages"
+                   ],
+    "activationEvents":  [
+                             "onLanguage:fabric",
+                             "onCommand:fabric.compile",
+                             "onCommand:fabric.run",
+                             "onCommand:fabric.validatePolicy"
+                         ],
+    "contributes":  {
+                        "languages":  [
+                                          {
+                                              "id":  "fabric",
+                                              "aliases":  [
+                                                              "Fabric",
+                                                              "fabric"
+                                                          ],
+                                              "extensions":  [
+                                                                 ".fab"
+                                                             ],
+                                              "configuration":  "./language-configuration.json"
+                                          }
+                                      ],
+                        "grammars":  [
+                                         {
+                                             "language":  "fabric",
+                                             "scopeName":  "source.fabric",
+                                             "path":  "./syntaxes/fabric.tmLanguage.json"
+                                         }
+                                     ],
+                        "commands":  [
+                                         {
+                                             "command":  "fabric.compile",
+                                             "title":  "Fabric: Compile (IR)"
+                                         },
+                                         {
+                                             "command":  "fabric.run",
+                                             "title":  "Fabric: Run (Brain)"
+                                         },
+                                         {
+                                             "command":  "fabric.validatePolicy",
+                                             "title":  "Fabric: Validate Policy"
+                                         }
+                                     ],
+                        "configuration":  {
+                                              "title":  "Fabric",
+                                              "properties":  {
+                                                                 "fabric.fabPath":  {
+                                                                                        "type":  "string",
+                                                                                        "default":  "D:\\\\Fabric\\\\fabric_Lang\\\\bin\\\\fab.exe",
+                                                                                        "description":  "Path to the local Fabric compiler (fab.exe)."
+                                                                                    },
+                                                                 "fabric.policySchema":  {
+                                                                                             "type":  "string",
+                                                                                             "default":  "D:\\\\Fabric\\\\fabric_Lang\\\\brains\\\\language\\\\compiler\\\\compiler\\\\backend\\\\schema\\\\policy.schema.json",
+                                                                                             "description":  "Path to policy.schema.json for validation."
+                                                                                         },
+                                                                 "fabric.brainPath":  {
+                                                                                          "type":  "string",
+                                                                                          "default":  "D:\\\\Fabric\\\\fabric_Lang\\\\AgentVM.exe",
+                                                                                          "description":  "Path to your local Agent-VM/brain binary."
+                                                                                      },
+                                                                 "fabric.outputDir":  {
+                                                                                          "type":  "string",
+                                                                                          "default":  "D:\\\\Fabric\\\\fabric_Lang\\\\out",
+                                                                                          "description":  "Directory for compiled IR artifacts."
+                                                                                      }
+                                                             }
+                                          }
+                    },
+    "main":  "./dist/extension.js",
+    "scripts":  {
+                    "compile":  "tsc -p .",
+                    "watch":  "tsc -w -p .",
+                    "package":  "vsce package",
+                    "prepublishOnly":  "npm run compile"
+                },
+    "devDependencies":  {
+                            "@types/node":  "^20.19.10",
+                            "@types/vscode":  "^1.101.0",
+                            "typescript":  "^5.9.2",
+                            "vsce":  "^2.15.0"
+                        },
+    "dependencies":  {
+                         "vscode-languageclient":  "^9.0.1"
+                     },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/fabric-official/fabric-lang.git"
+                   }
+}

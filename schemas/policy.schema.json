@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Fabric Policy Schema",
+    "type": "object",
+    "properties": {
+        "privacy": {
+            "type": "string",
+            "enum": [
+                "anonymized",
+                "pseudonymized",
+                "raw"
+            ]
+        },
+        "energy_budget": {
+            "type": "string",
+            "pattern": "^[0-9]+(.[0-9]+)?(J|kJ|mJ) per_[A-Za-z_][A-Za-z0-9_]*$",
+            "properties": {
+                "weighted": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^[A-Za-z_][A-Za-z0-9_]*$": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                        }
+                    },
+                    "minProperties": 1,
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "weighted"
+            ],
+            "additionalProperties": false
+        },
+        "consentRequired": {
+            "type": "boolean"
+        },
+        "purpose": {
+            "type": "string"
+        },
+        "dpia": {
+            "type": "boolean"
+        },
+        "dpiaReport": {
+            "type": "string",
+            "format": "uri-reference"
+        }
+    },
+    "required": [
+        "privacy"
+    ],
+    "additionalProperties": false
+}

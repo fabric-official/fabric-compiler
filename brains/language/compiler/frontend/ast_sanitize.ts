@@ -1,0 +1,5 @@
+﻿export type PolicyKV={key:string;value:unknown;loc?:{line:number;col:number}};
+export type PolicyBlock={entries:PolicyKV[]};
+const ALLOWED=new Set(["allow","deny","groups","limits","energy_budget","network","storage"]);
+export function sanitizePolicy(block:PolicyBlock){const seen=new Set<string>();for(const kv of block.entries){if(!ALLOWED.has(kv.key))throw new Error(`policy: unknown key '${kv.key}'`);if(seen.has(kv.key))throw new Error(`policy: duplicate key '${kv.key}'`);seen.add(kv.key);if(["allow","deny","groups"].includes(kv.key)){if(typeof kv.value==="object"&&kv.value&&!Array.isArray(kv.value))throw new Error(`policy.${kv.key}: nested objects not allowed`);}}}
+export function inferTypesAndGuard(ast:any){const UNSAFE=new Set(["__builtin_memcpy","__builtin_unsafe_ptr","llvm.trap"]);function walk(n:any){if(!n||typeof n!=="object")return;if(n.kind==="IntrinsicCall"&&UNSAFE.has(n.name))throw new Error(`unsafe intrinsic not allowed: ${n.name}`);if(n.kind==="Loop"&&n.unbounded===true)throw new Error("unbounded loop rejected");for(const k of Object.keys(n))walk((n as any)[k]);}walk(ast);}

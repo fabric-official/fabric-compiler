@@ -1,0 +1,1 @@
+{"version":3,"file":"version_map.js","sourceRoot":"","sources":["../../frontend/version_map.ts"],"names":[],"mappings":";AAAA,0BAA0B;;;AAE1B;;;GAGG;AACU,QAAA,UAAU,GAA2B;IAC9C,MAAM,EAAE,OAAO;IACf,SAAS,EAAE,OAAO;IAClB,SAAS,EAAE,OAAO;IAClB,WAAW,EAAE,cAAc;IAC3B,YAAY,EAAE,OAAO;IACrB,WAAW,EAAE,OAAO;IACpB,6CAA6C;CAChD,CAAC"}

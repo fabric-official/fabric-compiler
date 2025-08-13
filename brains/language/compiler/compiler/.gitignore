@@ -1,0 +1,17 @@
+# Ignore build and install outputs
+llvm-project/build/
+llvm-project/install/
+mlir/build/
+*.sln
+*.vcxproj*
+*.user
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+*.log
+*.obj
+*.pdb
+*.lib
+*.exe
+*.dir/

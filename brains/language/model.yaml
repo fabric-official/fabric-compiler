@@ -1,0 +1,33 @@
+id: agent://core/language-brain@1.0.0
+name: Fabric Language Brain
+origin: Fabric
+forkable: false
+capabilityTier: core
+capabilities:
+  - cap.core.compile
+  - cap.core.atomize
+  - cap.core.policy.lint
+  - cap.core.codegen
+  - cap.core.provenance.prove
+attestationPolicy: required
+determinism: reproducible-builds
+energy_budget:
+  max_wh_per_hour: 150
+api:
+  kind: grpc
+  package: fabric.core.language.v1
+  service: LanguageBrain
+artifact_policy:
+  sbom: required
+  sign: cose+sgx
+i18n:
+  locales: [en, fr, zh, es, de, ar, ru]
+
+polyglot_targets:
+  - cpp
+  - python
+  - javascript
+  - rust
+  - go
+  - dart
+  - sol

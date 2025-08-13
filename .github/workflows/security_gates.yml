@@ -1,0 +1,21 @@
+﻿name: Fabric Security Gates
+on: { workflow_dispatch: {}, pull_request: {}, push: { branches: ["main"] } }
+jobs:
+  fuzz-and-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        run: sudo apt-get update && sudo apt-get install -y clang llvm
+      - name: Fuzz grammar
+        run: echo "(libFuzzer harness placeholder)"
+      - name: Policy tests
+        run: echo "Run policy coverage tests"
+  build-attested:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reproducible build
+        run: echo "deterministic build placeholder"
+      - name: Sign artifacts (DAO key)
+        run: echo "sign artifacts placeholder"

@@ -1,0 +1,21 @@
+syntax = "proto3";
+package fabric.core.language.v1;
+
+message Source { string path = 1; bytes content = 2; string lang = 3; } // lang: en|fr|zh|sol|... // lang: en|fr|zh|...
+message CompileFlags { bool atomized = 1; repeated string targets = 2; bool reproducible = 3; } // targets can include: sol, cpp, python, rust, go, dart, js
+message CompileRequest { repeated Source src = 1; CompileFlags flags = 2; map<string,string> env = 3; }
+message Artifact { string name = 1; bytes data = 2; string sha256 = 3; }
+message Attestation { bytes cose = 1; string sbom_sha256 = 2; string repro_hash = 3; }
+message CompileResult { repeated Artifact artifacts = 1; Attestation attest = 2; string repro = 3; }
+
+message AtomizeRequest { repeated Source src = 1; }
+message Atom { string id = 1; uint64 energy = 2; repeated string edges = 3; }
+message AtomGraph { repeated Atom nodes = 1; }
+
+message PolicyReport { bool ok = 1; repeated string violations = 2; repeated string codes = 3; }
+
+service LanguageBrain {
+  rpc Compile(CompileRequest) returns (CompileResult);
+  rpc Atomize(AtomizeRequest) returns (AtomGraph);
+  rpc PolicyLint(AtomizeRequest) returns (PolicyReport);
+}

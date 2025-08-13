@@ -1,0 +1,8 @@
+{
+  "scopeName": "source.fabric",
+  "patterns": [
+    { "match": "\\\\b(agent|policy|run|emit|fork|coordination|energy_budget|royalty_bps)\\\\b", "name": "keyword.control.fabric" },
+    { "match": "\"[^\"]*\"", "name": "string.quoted.double.fabric" },
+    { "match": "//.*$", "name": "comment.line.double-slash.fabric" }
+  ]
+}

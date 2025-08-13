@@ -1,0 +1,12 @@
+{
+  "name": "fabric-brain-vm",
+  "version": "0.2.0",
+  "description": "Hardened AgentVM for Fabric IR",
+  "main": "agentvm.js",
+  "bin": { "agentvm": "agentvm.js" },
+  "scripts": {
+    "build:exe": "pkg -t node18-win-x64 --output ../../AgentVM.exe agentvm.js"
+  },
+  "devDependencies": { "pkg": "^5.8.1" },
+  "pkg": { "scripts": ["agentvm.js"] }
+}

@@ -1,0 +1,12 @@
+﻿# Build outputs
+/out/
+/dist/
+/bin/*.cmd
+/tools/vsce-fabric/*.vsix
+/AgentVM.exe
+
+# Dependencies, IDE
+node_modules/
+/.vscode/
+/.vsce/
+/*.log

@@ -1,0 +1,4 @@
+﻿agent Hello {
+  policy { royalty_bps: 400, energy_budget: 5, rollback_max: 1 }
+  run { steps: [ { emit: "hello" }, { emit: "world" } ] }
+}
