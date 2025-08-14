@@ -1,6 +1,7 @@
 FROM node:20-alpine
 WORKDIR /app
 COPY package.json package-lock.json* ./
+# Use lockfile if present; otherwise fallback (keeps CI resilient)
 RUN npm ci --omit=dev || npm install --only=prod
 COPY proto ./proto
 COPY server ./server
