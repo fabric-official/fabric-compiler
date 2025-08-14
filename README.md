@@ -1,4 +1,5 @@
 Language Brain (Unified)
+
 This package wraps the original Fabric language compiler behind a core, non-forkable Language Brain that speaks gRPC (with JSON/HTTP mapping). It keeps multilingual inputs intact, produces deterministic artifacts plus an attestation envelope, and exposes three service methods:
 
 Compile — parse → lower → build targets (IR, Solidity, etc.)
