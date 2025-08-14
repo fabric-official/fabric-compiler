@@ -1,0 +1,8 @@
+node_modules
+.git
+out
+dist
+_rootfs
+rootfs.tar
+*.log
+.DS_Store

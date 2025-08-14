@@ -1,0 +1,53 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke:
+    strategy: { matrix: { os: [windows-latest, ubuntu-latest] } }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20.x" }
+      - run: npm ci
+      - name: Local guard smoke
+        run: npx fab-guard build --in examples/hello.fab --out out/hello.ir.json
+      - name: AgentVM smoke (Windows)
+        if: matrix.os == 'windows-latest'
+        run: .\AgentVM.exe --ir out\hello.ir.json
+      - name: Start daemon
+        shell: bash
+        run: |
+          node server/index.js --bind 127.0.0.1:8891 --auth_token testtoken &
+          sleep 2
+      - name: Remote compile (Solidity)
+        run: node bin/fab-guard-remote.js --url 127.0.0.1:8891 --auth "Bearer testtoken" --in examples/hello.fab --out out/remote.ir.json --target sol
+      - name: Assert .sol exists
+        shell: bash
+        run: test -f out/sol/FabricAgent.sol
+
+  docker-remote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20.x" }
+      - run: npm ci
+      - name: Build image
+        run: docker build -f docker/language-brain.Dockerfile -t language-brain:ci .
+      - name: Run container
+        run: docker run -d --name lb -p 8891:8891 language-brain:ci
+      - name: Wait
+        run: sleep 2
+      - name: Remote compile (Solidity via container)
+        run: node bin/fab-guard-remote.js --url 127.0.0.1:8891 --in examples/hello.fab --out out/remote.ir.json --target sol
+      - name: Assert .sol exists
+        run: test -f out/sol/FabricAgent.sol
+      - name: Logs
+        if: always()
+        run: docker logs lb || true
+      - name: Cleanup
+        if: always()
+        run: docker rm -f lb || true
