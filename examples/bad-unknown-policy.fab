@@ -1,0 +1,4 @@
+﻿agent Bad1 {
+  policy { royalty_bps: 1, energy_budget: 1, backdoor: true }
+  run { steps: [ ["emit","x"] ] }
+}
