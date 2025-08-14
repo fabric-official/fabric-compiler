@@ -1,0 +1,37 @@
+﻿syntax = "proto3";
+
+package fabric.core.language.v1;
+
+service LanguageBrain {
+  rpc Compile   (CompileRequest)   returns (CompileReply);
+  rpc Atomize   (AtomizeRequest)   returns (AtomizeReply);
+  rpc PolicyLint(PolicyLintRequest)returns (PolicyLintReply);
+}
+
+message Src {
+  string path    = 1;
+  string content = 2;
+  string lang    = 3;
+}
+
+message CompileFlags {
+  repeated string targets = 1;  // e.g. ["sol"]
+  bool reproducible       = 2;  // if true, daemon emits deterministic artifacts & attestation
+}
+
+message CompileRequest {
+  repeated Src src = 1;
+  CompileFlags flags = 2;
+}
+
+message CompileReply {
+  string ir_json = 1;                // normalized tuple IR JSON
+  repeated string artifacts = 2;     // relative paths written under /out
+  string attestation_json = 3;       // SHA256s, versions, timestamp
+}
+
+message AtomizeRequest { string ir_json = 1; }
+message AtomizeReply   { repeated string atoms = 1; }
+
+message PolicyLintRequest { string content = 1; } // .fab source
+message PolicyLintReply   { bool ok = 1; repeated string errors = 2; }

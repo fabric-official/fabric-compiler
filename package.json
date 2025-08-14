@@ -1,0 +1,30 @@
+{
+    "name": "fabric_lang",
+    "version": "1.0.0",
+    "description": "This package wraps the original compiler into a **core non-forkable Language Brain** with gRPC. - Keeps multilingual inputs (en/fr/zh/Ã¢â‚¬Â¦) - Emits deterministic artifacts and attestation envelope - Exposes `Compile/Atomize/PolicyLint`",
+    "main": "index.js",
+    "directories": {
+        "example": "examples"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "guard": "fab-guard build --in examples/hello.fab --out out/hello.ir.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fabric-official/fabric-lang.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/fabric-official/fabric-lang/issues"
+    },
+    "homepage": "https://github.com/fabric-official/fabric-lang#readme",
+    "devDependencies": {
+        "@grpc/grpc-js": "^1.13.4",
+        "@grpc/proto-loader": "^0.8.0",
+        "fabric-fab-guard-cli": "^1.0.1"
+    }
+}
