@@ -1,30 +1,37 @@
 {
-    "name": "fabric_lang",
-    "version": "1.0.0",
-    "description": "This package wraps the original compiler into a **core non-forkable Language Brain** with gRPC. - Keeps multilingual inputs (en/fr/zh/Ã¢â‚¬Â¦) - Emits deterministic artifacts and attestation envelope - Exposes `Compile/Atomize/PolicyLint`",
-    "main": "index.js",
-    "directories": {
-        "example": "examples"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "guard": "fab-guard build --in examples/hello.fab --out out/hello.ir.json"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/fabric-official/fabric-lang.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "type": "commonjs",
-    "bugs": {
-        "url": "https://github.com/fabric-official/fabric-lang/issues"
-    },
-    "homepage": "https://github.com/fabric-official/fabric-lang#readme",
-    "devDependencies": {
-        "@grpc/grpc-js": "^1.13.4",
-        "@grpc/proto-loader": "^0.8.0",
-        "fabric-fab-guard-cli": "^1.0.1"
-    }
+    "name":  "fabric_lang",
+    "version":  "1.0.0",
+    "description":  "This package wraps the original compiler into a **core non-forkable Language Brain** with gRPC. - Keeps multilingual inputs (en/fr/zh/ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦) - Emits deterministic artifacts and attestation envelope - Exposes `Compile/Atomize/PolicyLint`",
+    "main":  "index.js",
+    "directories":  {
+                        "example":  "examples"
+                    },
+    "scripts":  {
+                    "test":  "echo \"Error: no test specified\" \u0026\u0026 exit 1",
+                    "guard":  "fab-guard build --in examples/hello.fab --out out/hello.ir.json",
+                    "start:brain":  "node server/index.js",
+                    "guard:remote":  "node bin/fab-guard-remote.js --url localhost:8891 --in examples/hello.fab --out out/hello.remote.ir.json",
+                    "docker:brain":  "docker build -f docker/language-brain.Dockerfile -t language-brain:1 .",
+                    "docker:run":  "docker run --rm -p 8891:8891 language-brain:1",
+                    "lint:policy":  "node -e \"const fs=require(\\\"fs\\\");const s=fs.readFileSync(\\\"examples/hello.fab\\\",\\\"utf8\\\");console.log(\\\"OK\\\")\""
+                },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "git+https://github.com/fabric-official/fabric-lang.git"
+                   },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "type":  "commonjs",
+    "bugs":  {
+                 "url":  "https://github.com/fabric-official/fabric-lang/issues"
+             },
+    "homepage":  "https://github.com/fabric-official/fabric-lang#readme",
+    "devDependencies":  {
+                            "@grpc/grpc-js":  "^1.13.4",
+                            "@grpc/proto-loader":  "^0.8.0",
+                            "fabric-fab-guard-cli":  "^1.0.1"
+                        }
 }
